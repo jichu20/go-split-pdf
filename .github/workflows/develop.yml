@@ -16,9 +16,13 @@ jobs:
         name: Get version and date builder
         run: |
           echo GITHUB_VERSION=$(make version) >> $GITHUB_ENV
+          echo GITHUB_BUILDER=$(make builder) >> $GITHUB_ENV
       - 
         name: show version
         run: echo $GITHUB_VERSION
+      - 
+        name: show builder
+        run: echo $GITHUB_BUILDER
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
