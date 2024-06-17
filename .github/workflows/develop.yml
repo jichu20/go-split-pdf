@@ -17,6 +17,7 @@ jobs:
         run: |
           export VERSION=make version
           echo VERSION=$(make version) >> $GITHUB_ENV
+          echo $VERSION
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
