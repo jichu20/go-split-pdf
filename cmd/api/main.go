@@ -25,6 +25,7 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer file.Close()
+
 	fmt.Printf("Uploaded File: %+v\n", handler.Filename)
 	fmt.Printf("File Size: %+v\n", handler.Size)
 	fmt.Printf("MIME Header: %+v\n", handler.Header)
@@ -32,8 +33,7 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 	// Create a temporary file within our temp-images directory that follows
 	// a particular naming pattern
 	// tempFile, err := ioutil.TempFile("temp-images", "upload-*.png")
-	tmpPath := os.Getenv("TEMP_PATH") + "/temp-images"
-	tempFile, err := os.CreateTemp(tmpPath, "upload-*.png")
+	tempFile, err := os.CreateTemp(os.Getenv("TEMP_PATH"), "upload-*.png")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -60,10 +60,12 @@ func staticUploadFile(w http.ResponseWriter, r *http.Request) {
 }
 
 func setupRoutes() {
+	// Map standar routes
 	http.HandleFunc("/upload", uploadFile)
-	// http.HandleFunc("/static/", staticUploadFile)
 	http.HandleFunc("/", helloWorld)
-	fs := http.FileServer(http.Dir("../../static/"))
+
+	// Map static files
+	fs := http.FileServer(http.Dir(os.Getenv("STATIC_PATH")))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	http.ListenAndServe(":8080", nil)
