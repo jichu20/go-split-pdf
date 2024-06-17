@@ -5,10 +5,14 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/pdfcpu/pdfcpu/pkg/api"
 	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu/model"
 )
+
+var Version = "latest"
+var Build = time.Now().String()
 
 // Funcion para la subida de contenido via API
 func uploadFile(w http.ResponseWriter, r *http.Request) {
@@ -92,6 +96,7 @@ func setupRoutes() {
 }
 
 func main() {
-	fmt.Println("Hello World")
+	fmt.Println("Version: ", Version)
+	fmt.Println("Build Time: ", Build)
 	setupRoutes()
 }
