@@ -7,7 +7,10 @@ Microservicio en golang creado para splitear un pdf en varios archivos.
 #### Dependencies
 ```sh 
 go mod init
-go get github.com/pdfcpu/pdfcpu/cmd/pdfcpu@latest
+# Gestion de pdf
+go get github.com/pdfcpu/pdfcpu/cmd/pdfcpu@latest 
+# Gestión de healtcheck 
+go get -u github.com/heptiolabs/healthcheck
 ``` 
 ### Docker 
 

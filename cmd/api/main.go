@@ -1,10 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
+	"split-pdf/internal/health"
 	"time"
 
 	"github.com/pdfcpu/pdfcpu/pkg/api"
@@ -83,14 +85,30 @@ func helloWorld(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hello World"))
 }
 
+func statusHandler(healthService health.Service) func(http.ResponseWriter, *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		bytes, err := json.MarshalIndent(healthService.Health(), "", "\t")
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		w.Write(bytes)
+	}
+}
+
 func setupRoutes() {
 	// Map standar routes
 	http.HandleFunc("/upload", uploadFile)
+	healthService := health.New()
+	http.HandleFunc("/_service/health", statusHandler(healthService))
 	http.HandleFunc("/", helloWorld)
 
 	// Map static files
 	fs := http.FileServer(http.Dir(os.Getenv("STATIC_PATH")))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
+
+	// Healcheck
+	// http.Handle("/dummy", health)
 
 	http.ListenAndServe(":8080", nil)
 }
