@@ -26,6 +26,7 @@ go.work.sum
 
 # directories
 temp-images/
+bin/
 
 # vscode
 __debug_*
