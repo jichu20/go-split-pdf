@@ -18,4 +18,7 @@ Para hacer el run del contenedor
 
 ```
 docker run --rm -p 8080:8080 --name mi-servicio mi-microservicio
+docker run --rm -p 8080:8080 --name mi-servicio jichu20/go-split-pdf
+
+
 ```
