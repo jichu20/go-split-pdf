@@ -15,6 +15,7 @@ jobs:
       - 
         name: Get version and date builder
         run: |
+          make version 
           export VERSION=make version
           echo VERSION=$(make version) >> $GITHUB_ENV
           echo $VERSION
