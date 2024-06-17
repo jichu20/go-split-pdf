@@ -24,4 +24,8 @@ go.work.sum
 # env file
 .env
 
+# directories
 temp-images/
+
+# vscode
+__debug_*
