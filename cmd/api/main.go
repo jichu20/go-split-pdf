@@ -7,13 +7,14 @@ import (
 	"net/http"
 	"os"
 	"split-pdf/internal/health"
+	"split-pdf/internal/info"
 	"time"
 
 	"github.com/pdfcpu/pdfcpu/pkg/api"
 	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu/model"
 )
 
-var Version = "latest"
+var Version = "development"
 var Build = time.Now().String()
 
 // Funcion para la subida de contenido via API
@@ -41,7 +42,6 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 
 	// Create a temporary file within our temp-images directory that follows
 	// a particular naming pattern
-	// tempFile, err := ioutil.TempFile("temp-images", "upload-*.png")
 	tempFile, err := os.CreateTemp(os.Getenv("TEMP_PATH"), "upload-*.png")
 	if err != nil {
 		fmt.Println(err)
@@ -97,18 +97,20 @@ func statusHandler(healthService health.Service) func(http.ResponseWriter, *http
 }
 
 func setupRoutes() {
+
+	// Load info Version
+	si := info.New(Version, Build)
+
 	// Map standar routes
 	http.HandleFunc("/upload", uploadFile)
 	healthService := health.New()
 	http.HandleFunc("/_service/health", statusHandler(healthService))
+	http.HandleFunc("/_service/info", si.InfoHandler())
 	http.HandleFunc("/", helloWorld)
 
 	// Map static files
 	fs := http.FileServer(http.Dir(os.Getenv("STATIC_PATH")))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
-
-	// Healcheck
-	// http.Handle("/dummy", health)
 
 	http.ListenAndServe(":8080", nil)
 }
