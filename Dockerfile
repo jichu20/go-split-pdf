@@ -1,6 +1,8 @@
 # Usamos una imagen base de Go ligera
 FROM golang:alpine as builder
 
+ARG VERSION="development"
+ARG BUILD="1999-01-01T00:00:00Z"
 # Establecemos el directorio de trabajo
 WORKDIR /app
 
@@ -10,7 +12,7 @@ COPY . .
 # Compilamos el binario
 # RUN go build -o microservicio cmd/api/main.go -ldflags="-X 'main.Version=v1.0.0'"
 # RUN go build -ldflags="-X 'main.Version=${VERSION}' -X main.Build=${BUILD}" -o ${BINARY} cmd/api/main.go 
-RUN go build -ldflags="-X 'main.Version=1.0.0' " -o microservicio cmd/api/main.go 
+RUN go build -ldflags="-X 'main.Version=${VERSION}' -X main.Build=${BUILD}" -o microservicio cmd/api/main.go 
 
 # Usamos alpine para mantener nuestro contenedor lo más ligero posible
 # FROM alpine:latest

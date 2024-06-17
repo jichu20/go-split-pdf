@@ -15,8 +15,8 @@ go get github.com/pdfcpu/pdfcpu/cmd/pdfcpu@latest
 
 Para hacer la build con docker 
 
-```
-docker build --platform linux/amd64 -t mi-microservicio .
+```sh
+docker build --platform linux/amd64 --build-arg VERSION=any --build-arg BUILD=`date +%FT%T%z` -t mi-microservicio .
 ```
 
 #### Run

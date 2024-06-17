@@ -2,7 +2,7 @@ name: Builder golang container
 on:
   push:
     branches:
-      - develop
+      - master
   
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
       - 
         name: Get version and date builder
         run: |
-          echo GITHUB_VERSION=latest >> $GITHUB_ENV
+          echo GITHUB_VERSION=$(make version) >> $GITHUB_ENV
           echo GITHUB_BUILDER=$(make builder) >> $GITHUB_ENV
       - 
         name: show version
