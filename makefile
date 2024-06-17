@@ -1,4 +1,4 @@
-VERSION=1.0.0
+VERSION=development
 BUILD=`date +%FT%T%z`
 BINARY="bin/go-split-pdf"
 

@@ -40,4 +40,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: jichu20/go-split-pdf:latest
+          tags: jichu20/go-split-pdf:${{env.GITHUB_VERSION}}
