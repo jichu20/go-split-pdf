@@ -5,6 +5,9 @@ import (
 	"io"
 	"net/http"
 	"os"
+
+	"github.com/pdfcpu/pdfcpu/pkg/api"
+	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu/model"
 )
 
 // Funcion para la subida de contenido via API
@@ -49,14 +52,31 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 	tempFile.Write(fileBytes)
 	// return that we have successfully uploaded our file!
 	fmt.Fprintf(w, "Successfully Uploaded File\n")
+
+	// Dividir PDF
+	conf := model.NewDefaultConfiguration()
+	conf.ValidationMode = model.ValidationRelaxed
+	destPath := os.Getenv("TEMP_PATH")
+	if destPath == "" {
+		fmt.Println("TEMP_PATH is not set")
+		return
+	}
+	f, err := os.Open(tempFile.Name())
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	err = api.Split(f, destPath, tempFile.Name(), 1, conf)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 }
 
 func helloWorld(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hello World"))
-}
-
-func staticUploadFile(w http.ResponseWriter, r *http.Request) {
-
 }
 
 func setupRoutes() {

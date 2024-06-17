@@ -3,6 +3,12 @@
 ## Descripción 
 Microservicio en golang creado para splitear un pdf en varios archivos.
 
+### golang 
+#### Dependencies
+```sh 
+go mod init
+go get github.com/pdfcpu/pdfcpu/cmd/pdfcpu@latest
+``` 
 ### Docker 
 
 #### Build
