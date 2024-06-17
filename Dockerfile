@@ -11,7 +11,8 @@ COPY . .
 RUN go build -o microservicio cmd/api/main.go
 
 # Usamos alpine para mantener nuestro contenedor lo más ligero posible
-FROM alpine:latest
+# FROM alpine:latest
+FROM alpine:edge
 
 WORKDIR /app/
 
