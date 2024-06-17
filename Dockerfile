@@ -13,10 +13,14 @@ RUN go build -o microservicio cmd/api/main.go
 # Usamos alpine para mantener nuestro contenedor lo más ligero posible
 FROM alpine:latest
 
-WORKDIR /root/
+WORKDIR /app/
 
 # Copiamos el binario compilado desde el primer paso
 COPY --from=builder /app/microservicio .
+COPY static/ /app/static/
+
+ENV STATIC_PATH=/app/static/
+ENV TEMP_PATH=/tmp
 
 # Exponemos el puerto en el que estamos escuchando
 EXPOSE 8080
