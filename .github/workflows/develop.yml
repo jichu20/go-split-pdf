@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - 
+        name: checkout repo
+        uses: actions/checkout@main
+      - 
         name: Get version and date builder
         run: |
           export VERSION=make version
