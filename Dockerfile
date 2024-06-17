@@ -16,7 +16,8 @@ RUN go build -ldflags="-X 'main.Version=${VERSION}' -X main.Build=${BUILD}" -o m
 
 # Usamos alpine para mantener nuestro contenedor lo más ligero posible
 # FROM alpine:latest
-FROM alpine:edge
+# FROM alpine:edge
+FROM scratch
 
 WORKDIR /app/
 
