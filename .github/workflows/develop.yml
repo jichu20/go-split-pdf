@@ -3,14 +3,17 @@ on:
   push:
     branches:
       - develop
-  pull_request:
-    branches:
-      - develop
+  
 
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - 
+        name: Get version and date builder
+        run: |
+          export VERSION=make version
+          echo VERSION=$(make version) >> $GITHUB_ENV
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3

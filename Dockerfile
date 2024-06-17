@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Compilamos el binario
-RUN go build -o microservicio cmd/api/main.go
+RUN go build -o microservicio cmd/api/main.go -ldflags="-X 'main.Version=v1.0.0'"
 
 # Usamos alpine para mantener nuestro contenedor lo más ligero posible
 # FROM alpine:latest

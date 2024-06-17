@@ -1,4 +1,3 @@
-# VERSION=`git describe --tags`
 VERSION=1.0.0
 BUILD=`date +%FT%T%z`
 BINARY="bin/go-split-pdf"
@@ -21,4 +20,7 @@ clean:
 .PHONY: version
 version:
 	@echo $(VERSION)
+
+.PHONY: builder
+builder:
 	@echo $(BUILD)
