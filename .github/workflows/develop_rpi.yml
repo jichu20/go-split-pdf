@@ -41,6 +41,7 @@ jobs:
         with:
           context: .
           file: Dockerfile.rpi
+          platforms: linux/arm/v7
           build-args: |
             VERSION=${{env.GITHUB_VERSION}}
             BUILDER=${{env.GITHUB_BUILDER}}
