@@ -1,4 +1,4 @@
-name: Builder golang container to RPI 
+name: Builder golang containerto ARM and create docker tag (latest)
 on:
   push:
     branches:

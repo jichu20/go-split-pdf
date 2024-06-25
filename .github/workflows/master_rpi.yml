@@ -1,4 +1,4 @@
-name: Builder golang container and create docker tag (no latest)
+name: Builder golang containerto ARM and create docker tag (no latest)
 on:
   push:
     branches:
@@ -40,8 +40,10 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: Dockerfile.rpi
+          platforms: linux/arm/v7
           build-args: |
             VERSION=${{env.GITHUB_VERSION}}
             BUILDER=${{env.GITHUB_BUILDER}}
           push: true
-          tags: jichu20/go-split-pdf:${{env.GITHUB_VERSION}}
+          tags: jichu20/go-split-pdf:${{env.GITHUB_VERSION}}_rpi

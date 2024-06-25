@@ -1,4 +1,4 @@
-name: Builder golang container 
+name: Builder golang containerto and create docker tag (latest)
 on:
   push:
     branches:
