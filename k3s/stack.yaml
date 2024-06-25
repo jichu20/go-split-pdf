@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: go-split-pdf
-          image: jichu20/go-split-pdf:1.0.0
+          image: jichu20/go-split-pdf:latest_rpi
           resources:
             limits:
               memory: "128Mi"
@@ -29,10 +29,14 @@ metadata:
   name: go-split-pdf
   namespace: develop
 spec:
+  type: NodePort
   selector:
     app: go-split-pdf
   ports:
-    - port: 8080
+    - name: go-split-pdf
+      nodePort: 30001
+      port: 8080
+      protocol: TCP
       targetPort: 8080
 
 ---
