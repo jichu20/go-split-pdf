@@ -1,5 +1,6 @@
 # Usamos una imagen base de Go ligera
-FROM arm32v7/golang as builder
+# FROM arm32v7/golang as builder
+FROM balenalib/raspberry-pi-debian-golang:latest as builder
 
 ARG VERSION="development"
 ARG BUILD="1999-01-01T00:00:00Z"
@@ -17,7 +18,8 @@ RUN go build -ldflags="-X 'main.Version=${VERSION}' -X main.Build=${BUILD}" -o m
 # Usamos alpine para mantener nuestro contenedor lo más ligero posible
 # FROM alpine:latest
 # FROM alpine:edge
-FROM scratch
+# FROM scratch
+FROM balenalib/raspberry-pi-debian-golang:latest
 
 WORKDIR /app/
 
