@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: http-server
+  name: go-split-pdf
+  namespace: develop
 spec:
   selector:
     matchLabels:
-      app: http-server
+      app: go-split-pdf
   template:
     metadata:
       labels:
-        app: http-server
+        app: go-split-pdf
     spec:
       containers:
-        - name: http-server
-          image: jakwai01/http-server
+        - name: go-split-pdf
+          image: jichu20/go-split-pdf:1.0.0
           resources:
             limits:
               memory: "128Mi"
-              cpu: "500m"
+              cpu: "128m"
           ports:
             - containerPort: 8080
 
@@ -25,27 +26,29 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: http-server
+  name: go-split-pdf
+  namespace: develop
 spec:
   selector:
-    app: http-server
+    app: go-split-pdf
   ports:
     - port: 8080
       targetPort: 8080
 
 ---
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: http-server
-spec:
-  backend:
-    serviceName: http-server
-    servicePort: 8080
-  rules:
-    - host: http-server.services.jakobwaibel.com
-      http:
-        paths:
-          - backend:
-              serviceName: http-server
-              servicePort: 8080
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: go-split-pdf
+#   namespace: develop
+# spec:
+#   backend:
+#     serviceName: go-split-pdf
+#     servicePort: 8080
+#   rules:
+#     - host: go-split-pdf.services.jichu20.com
+#       http:
+#         paths:
+#           - backend:
+#               serviceName: go-split-pdf
+#               servicePort: 8080
