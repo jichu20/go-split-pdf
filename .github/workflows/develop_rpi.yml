@@ -1,4 +1,4 @@
-name: Builder golang container 
+name: Builder golang container to RPI 
 on:
   push:
     branches:
