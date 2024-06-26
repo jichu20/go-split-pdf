@@ -8,6 +8,7 @@ import (
 	"os"
 	"split-pdf/internal/health"
 	"split-pdf/internal/info"
+	"split-pdf/internal/logs"
 	"time"
 
 	"github.com/pdfcpu/pdfcpu/pkg/api"
@@ -116,6 +117,14 @@ func setupRoutes() {
 }
 
 func main() {
+	logs.Default.LogLevel = logs.LevelError
+	logs.Default.Error("Dummy")
+	logs.Default.Warning("Dummy")
+	logs.Default.Info("Dummy")
+	logs.Default.Debug("Dummy")
+
+	// s := logs.Spitter{}
+	// s.Debug("Starting server")
 	fmt.Println("Version: ", Version)
 	fmt.Println("Build Time: ", Build)
 	setupRoutes()
