@@ -3,6 +3,7 @@ module split-pdf
 go 1.22.4
 
 require (
+	github.com/google/uuid v1.6.0 // indirect
 	github.com/hhrutter/lzw v1.0.0 // indirect
 	github.com/hhrutter/tiff v1.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect

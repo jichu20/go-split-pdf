@@ -106,7 +106,8 @@ func setupRoutes() {
 	// creatt handlers
 
 	infolHandler := http.HandlerFunc(si.InfoHandler())
-	http.Handle("/_service/info", middleware.MiddlewareOne(infolHandler))
+	// http.Handle("/_service/info", middleware.CheckHeaders(infolHandler))
+	http.Handle("/_service/info", middleware.HTTPMiddleware(infolHandler))
 
 	// Map standar routes
 	http.HandleFunc("/upload", uploadFile)
@@ -123,15 +124,9 @@ func setupRoutes() {
 }
 
 func main() {
-	logs.Default.LogLevel = logs.LevelError
-	logs.Default.Error("Dummy")
-	logs.Default.Warning("Dummy")
-	logs.Default.Info("Dummy")
-	logs.Default.Debug("Dummy")
 
-	// s := logs.Spitter{}
-	// s.Debug("Starting server")
-	fmt.Println("Version: ", Version)
-	fmt.Println("Build Time: ", Build)
+	logs.Default.LogLevel = logs.LevelDebug
+	logs.Default.Debug(fmt.Sprintf("Version: ", Version))
+	logs.Default.Debug(fmt.Sprintf("Build Time: ", Build))
 	setupRoutes()
 }
