@@ -9,6 +9,7 @@ import (
 	"split-pdf/internal/health"
 	"split-pdf/internal/info"
 	"split-pdf/internal/logs"
+	"split-pdf/internal/middleware"
 	"time"
 
 	"github.com/pdfcpu/pdfcpu/pkg/api"
@@ -102,11 +103,16 @@ func setupRoutes() {
 	// Load info Version
 	si := info.New(Version, Build)
 
+	// creatt handlers
+
+	infolHandler := http.HandlerFunc(si.InfoHandler())
+	http.Handle("/_service/info", middleware.MiddlewareOne(infolHandler))
+
 	// Map standar routes
 	http.HandleFunc("/upload", uploadFile)
 	healthService := health.New()
 	http.HandleFunc("/_service/health", statusHandler(healthService))
-	http.HandleFunc("/_service/info", si.InfoHandler())
+	// http.HandleFunc("/_service/info", si.InfoHandler())
 	http.HandleFunc("/", helloWorld)
 
 	// Map static files
