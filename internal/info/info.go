@@ -1,9 +1,8 @@
 package info
 
 import (
-	"fmt"
 	"net/http"
-	"split-pdf/internal/middleware"
+	u "split-pdf/internal/utils"
 )
 
 type ServiceInfo struct {
@@ -26,9 +25,10 @@ func (si *ServiceInfo) GetInfo() []byte {
 func (si *ServiceInfo) InfoHandler() func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		context := r.Context()
-		dummy := middleware.FromContext(context)
+		// dummy := middleware.FromContext(context)
 
-		fmt.Println("Dummy: ", dummy)
+		u.Log.Debug(context, "Mensaje de prueba ")
+		// fmt.Println("Dummy: ", dummy)
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(si.GetInfo())
 	}
